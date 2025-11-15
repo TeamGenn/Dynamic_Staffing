@@ -1,0 +1,301 @@
+task_id,task_type,duration_minutes,required_skills,employee_assigned,outcome
+1,product_inquiry,63,"{""documentation"": 9}",9,success
+2,technical_issue,68,"{""teamwork"": 2, ""problem_solving"": 7}",1,success
+3,phone_support,98,"{""inventory_management"": 1, ""teamwork"": 8}",4,escalated
+4,quality_check,77,"{""sales"": 8, ""cash_handling"": 3}",7,success
+5,data_entry,110,"{""time_management"": 7, ""quality_control"": 9, ""multitasking"": 2}",10,escalated
+6,documentation,120,"{""time_management"": 3, ""phone_etiquette"": 3}",8,delayed
+7,sales_call,31,"{""customer_service"": 7, ""documentation"": 6}",4,success
+8,data_entry,83,"{""product_knowledge"": 7, ""technical_support"": 9}",6,delayed
+9,quality_check,20,"{""cash_handling"": 8, ""product_knowledge"": 4}",9,success
+10,quality_check,40,"{""cash_handling"": 1, ""phone_etiquette"": 2}",4,delayed
+11,sales_call,37,"{""customer_service"": 4}",3,escalated
+12,sales_call,37,"{""sales"": 1, ""multitasking"": 6, ""documentation"": 3}",1,escalated
+13,technical_issue,89,"{""quality_control"": 6, ""documentation"": 7}",7,success
+14,phone_support,24,"{""product_knowledge"": 4, ""teamwork"": 4}",2,delayed
+15,documentation,109,"{""multitasking"": 6, ""documentation"": 1}",6,success
+16,documentation,34,"{""customer_service"": 1}",3,success
+17,product_inquiry,115,"{""problem_solving"": 1, ""time_management"": 4, ""product_knowledge"": 3}",5,delayed
+18,product_inquiry,79,"{""problem_solving"": 4, ""cash_handling"": 9, ""data_entry"": 4}",10,delayed
+19,inventory_update,79,"{""quality_control"": 10, ""multitasking"": 5, ""email_communication"": 5}",1,delayed
+20,sales_call,58,"{""time_management"": 8}",1,success
+21,quality_check,80,"{""technical_support"": 6, ""documentation"": 1, ""phone_etiquette"": 6}",7,escalated
+22,sales_call,45,"{""technical_support"": 8, ""quality_control"": 5}",5,success
+23,phone_support,32,"{""communication"": 8, ""multitasking"": 8}",4,escalated
+24,data_entry,98,"{""problem_solving"": 2}",10,delayed
+25,quality_check,62,"{""email_communication"": 10, ""time_management"": 10, ""quality_control"": 9}",3,delayed
+26,data_entry,94,"{""multitasking"": 3, ""teamwork"": 10}",2,escalated
+27,cash_transaction,18,"{""product_knowledge"": 4, ""documentation"": 6}",3,success
+28,data_entry,101,"{""email_communication"": 8}",10,success
+29,documentation,103,"{""multitasking"": 4}",7,success
+30,technical_issue,74,"{""communication"": 7, ""documentation"": 2}",7,success
+31,data_entry,117,"{""technical_support"": 10, ""inventory_management"": 9, ""communication"": 10}",4,escalated
+32,product_inquiry,80,"{""teamwork"": 8, ""documentation"": 10, ""product_knowledge"": 9}",8,escalated
+33,sales_call,90,"{""customer_service"": 10, ""problem_solving"": 8}",6,escalated
+34,documentation,42,"{""customer_service"": 3}",9,delayed
+35,cash_transaction,56,"{""cash_handling"": 8}",8,delayed
+36,product_inquiry,59,"{""email_communication"": 6}",2,escalated
+37,technical_issue,16,"{""inventory_management"": 1, ""time_management"": 7, ""quality_control"": 6}",10,escalated
+38,inventory_update,42,"{""communication"": 6, ""data_entry"": 2, ""teamwork"": 4}",6,escalated
+39,customer_support,67,"{""data_entry"": 8, ""customer_service"": 5, ""documentation"": 1}",10,escalated
+40,data_entry,66,"{""email_communication"": 9, ""quality_control"": 1}",9,success
+41,inventory_update,105,"{""teamwork"": 10}",9,success
+42,phone_support,114,"{""phone_etiquette"": 4, ""data_entry"": 2}",9,delayed
+43,phone_support,112,"{""teamwork"": 6}",1,success
+44,phone_support,77,"{""cash_handling"": 1, ""communication"": 4}",2,escalated
+45,data_entry,111,"{""quality_control"": 10, ""data_entry"": 2}",4,delayed
+46,customer_support,103,"{""multitasking"": 5, ""communication"": 7, ""quality_control"": 6}",10,success
+47,phone_support,76,"{""teamwork"": 6, ""inventory_management"": 5}",3,success
+48,documentation,33,"{""product_knowledge"": 4, ""sales"": 5, ""data_entry"": 3}",5,escalated
+49,product_inquiry,109,"{""sales"": 9}",10,delayed
+50,sales_call,45,"{""product_knowledge"": 4, ""technical_support"": 2}",9,escalated
+51,inventory_update,26,"{""communication"": 7}",5,escalated
+52,data_entry,119,"{""problem_solving"": 3}",7,delayed
+53,data_entry,59,"{""inventory_management"": 4, ""customer_service"": 9}",1,delayed
+54,technical_issue,47,"{""multitasking"": 9}",10,escalated
+55,inventory_update,21,"{""multitasking"": 6}",10,escalated
+56,technical_issue,56,"{""product_knowledge"": 5}",7,success
+57,phone_support,63,"{""email_communication"": 10, ""technical_support"": 7, ""time_management"": 9}",9,success
+58,technical_issue,86,"{""teamwork"": 9}",2,success
+59,phone_support,111,"{""data_entry"": 6, ""cash_handling"": 8}",3,escalated
+60,product_inquiry,31,"{""problem_solving"": 1, ""technical_support"": 8}",7,success
+61,phone_support,22,"{""cash_handling"": 7, ""email_communication"": 10, ""customer_service"": 5}",10,delayed
+62,customer_support,18,"{""multitasking"": 9, ""documentation"": 3}",3,success
+63,product_inquiry,81,"{""teamwork"": 2, ""sales"": 9, ""quality_control"": 1}",7,delayed
+64,customer_support,74,"{""data_entry"": 9, ""technical_support"": 3}",1,success
+65,phone_support,59,"{""inventory_management"": 4}",6,escalated
+66,sales_call,95,"{""documentation"": 2, ""product_knowledge"": 8, ""phone_etiquette"": 10}",5,escalated
+67,sales_call,55,"{""communication"": 10}",6,success
+68,technical_issue,78,"{""inventory_management"": 3, ""time_management"": 2, ""data_entry"": 4}",2,success
+69,technical_issue,25,"{""teamwork"": 9}",3,success
+70,data_entry,44,"{""multitasking"": 8}",8,escalated
+71,data_entry,79,"{""technical_support"": 5, ""documentation"": 3}",9,escalated
+72,technical_issue,92,"{""documentation"": 8, ""teamwork"": 4, ""communication"": 7}",10,escalated
+73,technical_issue,36,"{""technical_support"": 4, ""phone_etiquette"": 2}",8,delayed
+74,quality_check,31,"{""product_knowledge"": 9}",6,delayed
+75,phone_support,94,"{""inventory_management"": 10, ""technical_support"": 3}",7,escalated
+76,technical_issue,116,"{""phone_etiquette"": 3, ""technical_support"": 6}",2,delayed
+77,inventory_update,86,"{""quality_control"": 3}",8,escalated
+78,quality_check,111,"{""time_management"": 6, ""sales"": 9}",9,escalated
+79,sales_call,70,"{""cash_handling"": 6, ""communication"": 8, ""time_management"": 5}",5,escalated
+80,inventory_update,57,"{""customer_service"": 8, ""time_management"": 6, ""technical_support"": 9}",8,escalated
+81,phone_support,82,"{""communication"": 4, ""problem_solving"": 8, ""teamwork"": 1}",8,escalated
+82,technical_issue,109,"{""documentation"": 10, ""technical_support"": 9, ""teamwork"": 8}",7,success
+83,technical_issue,62,"{""inventory_management"": 9}",7,success
+84,product_inquiry,85,"{""email_communication"": 4}",4,delayed
+85,product_inquiry,117,"{""technical_support"": 4}",8,escalated
+86,quality_check,35,"{""time_management"": 2, ""data_entry"": 1, ""teamwork"": 10}",1,delayed
+87,data_entry,57,"{""multitasking"": 4, ""sales"": 7}",10,success
+88,customer_support,86,"{""documentation"": 9}",5,delayed
+89,cash_transaction,18,"{""inventory_management"": 9, ""quality_control"": 8}",2,delayed
+90,quality_check,101,"{""documentation"": 1, ""cash_handling"": 9, ""problem_solving"": 2}",2,escalated
+91,product_inquiry,78,"{""quality_control"": 5, ""product_knowledge"": 10}",6,success
+92,cash_transaction,98,"{""communication"": 4, ""data_entry"": 6}",7,delayed
+93,inventory_update,30,"{""technical_support"": 9}",1,delayed
+94,cash_transaction,44,"{""cash_handling"": 5, ""multitasking"": 3, ""time_management"": 10}",8,escalated
+95,documentation,102,"{""product_knowledge"": 6, ""problem_solving"": 3, ""cash_handling"": 9}",7,delayed
+96,documentation,84,"{""teamwork"": 8, ""product_knowledge"": 7}",3,escalated
+97,inventory_update,41,"{""phone_etiquette"": 8}",4,delayed
+98,phone_support,112,"{""multitasking"": 2, ""cash_handling"": 3, ""inventory_management"": 9}",7,delayed
+99,product_inquiry,32,"{""quality_control"": 3, ""email_communication"": 4}",7,delayed
+100,product_inquiry,83,"{""sales"": 5, ""product_knowledge"": 2, ""phone_etiquette"": 9}",7,escalated
+101,sales_call,24,"{""data_entry"": 9, ""teamwork"": 9}",2,escalated
+102,inventory_update,117,"{""cash_handling"": 2, ""teamwork"": 9}",9,escalated
+103,quality_check,94,"{""quality_control"": 10, ""teamwork"": 9, ""cash_handling"": 2}",1,success
+104,product_inquiry,98,"{""product_knowledge"": 5, ""customer_service"": 2}",1,delayed
+105,technical_issue,34,"{""time_management"": 3, ""multitasking"": 1, ""problem_solving"": 5}",2,success
+106,cash_transaction,50,"{""time_management"": 4, ""quality_control"": 8, ""customer_service"": 9}",8,delayed
+107,phone_support,98,"{""time_management"": 2, ""teamwork"": 9}",6,delayed
+108,technical_issue,36,"{""teamwork"": 5, ""customer_service"": 4}",7,escalated
+109,sales_call,71,"{""time_management"": 10}",2,escalated
+110,data_entry,109,"{""inventory_management"": 3, ""multitasking"": 8, ""problem_solving"": 9}",10,delayed
+111,product_inquiry,29,"{""data_entry"": 8}",7,delayed
+112,product_inquiry,107,"{""teamwork"": 1, ""time_management"": 2, ""sales"": 7}",2,escalated
+113,documentation,16,"{""technical_support"": 7, ""phone_etiquette"": 9, ""customer_service"": 8}",1,success
+114,cash_transaction,115,"{""product_knowledge"": 3}",3,escalated
+115,inventory_update,105,"{""cash_handling"": 4, ""phone_etiquette"": 1, ""data_entry"": 10}",4,delayed
+116,quality_check,105,"{""sales"": 9, ""problem_solving"": 9, ""product_knowledge"": 3}",6,delayed
+117,technical_issue,22,"{""customer_service"": 2}",10,success
+118,customer_support,15,"{""product_knowledge"": 2, ""technical_support"": 3}",9,escalated
+119,inventory_update,61,"{""communication"": 7, ""technical_support"": 4}",3,delayed
+120,data_entry,29,"{""communication"": 10}",3,escalated
+121,phone_support,18,"{""product_knowledge"": 8, ""communication"": 9}",7,success
+122,customer_support,91,"{""technical_support"": 3}",7,escalated
+123,product_inquiry,102,"{""problem_solving"": 4, ""communication"": 6}",6,escalated
+124,inventory_update,112,"{""communication"": 4, ""customer_service"": 2, ""teamwork"": 4}",4,success
+125,documentation,78,"{""quality_control"": 9, ""problem_solving"": 8}",10,success
+126,data_entry,85,"{""customer_service"": 4}",9,escalated
+127,product_inquiry,16,"{""teamwork"": 8}",9,escalated
+128,phone_support,81,"{""sales"": 4, ""inventory_management"": 7}",8,escalated
+129,product_inquiry,107,"{""time_management"": 6}",7,delayed
+130,documentation,59,"{""data_entry"": 9, ""documentation"": 8, ""product_knowledge"": 2}",4,delayed
+131,documentation,85,"{""inventory_management"": 3, ""email_communication"": 6}",10,escalated
+132,customer_support,73,"{""documentation"": 10, ""customer_service"": 9, ""email_communication"": 10}",7,delayed
+133,sales_call,108,"{""product_knowledge"": 3}",5,escalated
+134,sales_call,21,"{""multitasking"": 3}",3,escalated
+135,data_entry,63,"{""technical_support"": 8, ""data_entry"": 7, ""multitasking"": 7}",8,escalated
+136,phone_support,22,"{""communication"": 5, ""multitasking"": 2}",5,delayed
+137,inventory_update,29,"{""sales"": 1, ""email_communication"": 5, ""inventory_management"": 10}",6,success
+138,cash_transaction,119,"{""sales"": 8, ""communication"": 5}",3,success
+139,data_entry,97,"{""communication"": 5, ""problem_solving"": 7}",2,delayed
+140,sales_call,48,"{""multitasking"": 10, ""quality_control"": 1, ""product_knowledge"": 4}",5,escalated
+141,quality_check,96,"{""inventory_management"": 2, ""technical_support"": 4, ""email_communication"": 5}",10,escalated
+142,sales_call,18,"{""customer_service"": 1, ""documentation"": 7}",7,escalated
+143,documentation,70,"{""communication"": 1, ""customer_service"": 1, ""email_communication"": 5}",4,delayed
+144,product_inquiry,29,"{""customer_service"": 6, ""documentation"": 1}",4,success
+145,customer_support,18,"{""multitasking"": 9}",4,escalated
+146,phone_support,71,"{""technical_support"": 7, ""problem_solving"": 9, ""documentation"": 7}",4,success
+147,product_inquiry,22,"{""documentation"": 5, ""data_entry"": 5}",9,success
+148,phone_support,41,"{""teamwork"": 5, ""email_communication"": 1, ""data_entry"": 8}",7,escalated
+149,product_inquiry,88,"{""sales"": 7, ""inventory_management"": 8, ""quality_control"": 8}",7,success
+150,sales_call,56,"{""email_communication"": 5}",4,delayed
+151,customer_support,22,"{""sales"": 3}",8,escalated
+152,inventory_update,58,"{""technical_support"": 7, ""product_knowledge"": 9, ""sales"": 7}",1,delayed
+153,data_entry,106,"{""product_knowledge"": 10, ""documentation"": 4}",7,delayed
+154,data_entry,111,"{""problem_solving"": 1}",9,success
+155,cash_transaction,29,"{""email_communication"": 7, ""inventory_management"": 10, ""customer_service"": 2}",9,success
+156,sales_call,68,"{""time_management"": 1}",10,delayed
+157,sales_call,40,"{""email_communication"": 8}",3,success
+158,technical_issue,65,"{""documentation"": 3, ""email_communication"": 3, ""inventory_management"": 5}",3,success
+159,cash_transaction,95,"{""communication"": 2, ""phone_etiquette"": 5}",7,delayed
+160,quality_check,114,"{""problem_solving"": 5, ""sales"": 4, ""cash_handling"": 3}",9,success
+161,quality_check,108,"{""teamwork"": 7}",7,escalated
+162,inventory_update,114,"{""time_management"": 8}",7,delayed
+163,data_entry,110,"{""inventory_management"": 5, ""problem_solving"": 9}",1,success
+164,customer_support,23,"{""email_communication"": 4, ""time_management"": 6, ""technical_support"": 2}",9,delayed
+165,sales_call,72,"{""email_communication"": 3, ""customer_service"": 7}",10,escalated
+166,documentation,119,"{""technical_support"": 8, ""multitasking"": 10}",6,success
+167,sales_call,83,"{""teamwork"": 9}",6,delayed
+168,customer_support,43,"{""inventory_management"": 3}",10,delayed
+169,cash_transaction,40,"{""data_entry"": 10, ""communication"": 2}",3,delayed
+170,inventory_update,120,"{""quality_control"": 2, ""inventory_management"": 10}",10,escalated
+171,documentation,59,"{""email_communication"": 7, ""documentation"": 2, ""problem_solving"": 3}",1,escalated
+172,technical_issue,22,"{""customer_service"": 2}",8,delayed
+173,technical_issue,57,"{""quality_control"": 7}",1,success
+174,technical_issue,96,"{""teamwork"": 5, ""communication"": 2}",8,success
+175,inventory_update,85,"{""customer_service"": 1, ""phone_etiquette"": 7}",2,delayed
+176,phone_support,57,"{""customer_service"": 2, ""cash_handling"": 5, ""phone_etiquette"": 1}",9,escalated
+177,inventory_update,119,"{""inventory_management"": 10, ""cash_handling"": 3, ""data_entry"": 4}",6,delayed
+178,sales_call,38,"{""inventory_management"": 4, ""cash_handling"": 4}",3,escalated
+179,technical_issue,58,"{""problem_solving"": 1}",1,escalated
+180,cash_transaction,54,"{""product_knowledge"": 2}",3,delayed
+181,documentation,93,"{""problem_solving"": 4, ""data_entry"": 3}",7,escalated
+182,data_entry,71,"{""communication"": 5, ""product_knowledge"": 7, ""sales"": 8}",9,escalated
+183,technical_issue,33,"{""email_communication"": 2, ""communication"": 2, ""cash_handling"": 3}",1,delayed
+184,sales_call,106,"{""quality_control"": 9, ""multitasking"": 4}",1,success
+185,customer_support,31,"{""sales"": 6}",2,escalated
+186,documentation,94,"{""phone_etiquette"": 4}",8,delayed
+187,quality_check,70,"{""teamwork"": 1, ""cash_handling"": 5}",2,delayed
+188,inventory_update,26,"{""product_knowledge"": 9}",6,delayed
+189,phone_support,73,"{""problem_solving"": 2}",9,success
+190,inventory_update,41,"{""documentation"": 2}",9,delayed
+191,quality_check,116,"{""product_knowledge"": 7, ""teamwork"": 10, ""customer_service"": 1}",3,escalated
+192,phone_support,83,"{""product_knowledge"": 10, ""communication"": 1, ""time_management"": 4}",9,success
+193,inventory_update,94,"{""customer_service"": 8}",1,success
+194,sales_call,52,"{""customer_service"": 2, ""problem_solving"": 2}",10,escalated
+195,product_inquiry,63,"{""cash_handling"": 8, ""quality_control"": 9}",6,delayed
+196,technical_issue,20,"{""communication"": 8, ""phone_etiquette"": 3, ""quality_control"": 1}",10,success
+197,customer_support,21,"{""customer_service"": 8, ""cash_handling"": 2}",1,escalated
+198,sales_call,97,"{""quality_control"": 5, ""time_management"": 3}",9,success
+199,phone_support,44,"{""multitasking"": 3, ""time_management"": 4, ""problem_solving"": 5}",4,success
+200,phone_support,75,"{""sales"": 8}",4,success
+201,customer_support,25,"{""inventory_management"": 4, ""product_knowledge"": 9, ""email_communication"": 9}",7,escalated
+202,quality_check,65,"{""data_entry"": 1, ""multitasking"": 6, ""teamwork"": 5}",3,escalated
+203,phone_support,110,"{""email_communication"": 4, ""technical_support"": 4}",6,escalated
+204,inventory_update,73,"{""multitasking"": 2}",2,escalated
+205,phone_support,31,"{""multitasking"": 2}",2,escalated
+206,technical_issue,33,"{""product_knowledge"": 1, ""time_management"": 9}",9,escalated
+207,product_inquiry,26,"{""email_communication"": 8, ""technical_support"": 3, ""sales"": 5}",10,success
+208,documentation,114,"{""cash_handling"": 8, ""technical_support"": 5}",5,escalated
+209,technical_issue,51,"{""phone_etiquette"": 2, ""customer_service"": 7}",10,escalated
+210,sales_call,105,"{""phone_etiquette"": 4, ""problem_solving"": 2}",5,success
+211,documentation,40,"{""technical_support"": 9, ""multitasking"": 7, ""teamwork"": 7}",10,escalated
+212,sales_call,34,"{""phone_etiquette"": 9, ""problem_solving"": 4, ""sales"": 1}",5,escalated
+213,technical_issue,59,"{""time_management"": 3, ""email_communication"": 3}",3,success
+214,documentation,49,"{""teamwork"": 7, ""problem_solving"": 3}",1,escalated
+215,documentation,58,"{""problem_solving"": 4, ""multitasking"": 10, ""communication"": 8}",5,success
+216,phone_support,52,"{""documentation"": 6, ""product_knowledge"": 6, ""teamwork"": 9}",7,escalated
+217,product_inquiry,103,"{""documentation"": 4, ""email_communication"": 6}",2,escalated
+218,product_inquiry,86,"{""phone_etiquette"": 10, ""documentation"": 5, ""product_knowledge"": 8}",6,delayed
+219,cash_transaction,47,"{""problem_solving"": 5, ""multitasking"": 2}",7,escalated
+220,inventory_update,98,"{""email_communication"": 5, ""documentation"": 7}",8,success
+221,inventory_update,68,"{""multitasking"": 10}",7,delayed
+222,customer_support,17,"{""multitasking"": 8, ""quality_control"": 9}",6,escalated
+223,phone_support,77,"{""time_management"": 8, ""teamwork"": 4}",1,escalated
+224,inventory_update,55,"{""technical_support"": 4, ""multitasking"": 2, ""data_entry"": 8}",4,escalated
+225,technical_issue,45,"{""data_entry"": 3, ""technical_support"": 8}",3,success
+226,phone_support,56,"{""documentation"": 2}",3,escalated
+227,technical_issue,119,"{""data_entry"": 3, ""documentation"": 5}",3,delayed
+228,sales_call,76,"{""cash_handling"": 6, ""customer_service"": 10}",2,escalated
+229,inventory_update,60,"{""documentation"": 7, ""time_management"": 2}",9,delayed
+230,phone_support,55,"{""email_communication"": 10, ""time_management"": 8, ""documentation"": 5}",5,delayed
+231,documentation,56,"{""email_communication"": 10}",4,delayed
+232,customer_support,52,"{""multitasking"": 7, ""email_communication"": 8}",7,success
+233,inventory_update,43,"{""inventory_management"": 6}",7,delayed
+234,documentation,74,"{""communication"": 9, ""quality_control"": 1, ""documentation"": 8}",2,delayed
+235,cash_transaction,58,"{""product_knowledge"": 5}",9,escalated
+236,cash_transaction,81,"{""teamwork"": 5, ""cash_handling"": 7}",7,delayed
+237,technical_issue,71,"{""customer_service"": 5}",1,success
+238,product_inquiry,89,"{""cash_handling"": 7}",1,escalated
+239,technical_issue,97,"{""sales"": 6}",10,success
+240,documentation,73,"{""teamwork"": 4, ""sales"": 5}",10,escalated
+241,inventory_update,52,"{""multitasking"": 2, ""quality_control"": 7}",8,escalated
+242,quality_check,23,"{""quality_control"": 6}",8,success
+243,cash_transaction,98,"{""inventory_management"": 3, ""time_management"": 1, ""product_knowledge"": 5}",5,escalated
+244,sales_call,110,"{""time_management"": 7, ""inventory_management"": 9}",7,delayed
+245,sales_call,65,"{""time_management"": 8, ""quality_control"": 1}",10,success
+246,sales_call,72,"{""phone_etiquette"": 5, ""time_management"": 1}",5,escalated
+247,phone_support,119,"{""data_entry"": 10, ""teamwork"": 4, ""product_knowledge"": 9}",3,escalated
+248,documentation,22,"{""problem_solving"": 1, ""inventory_management"": 1}",4,success
+249,data_entry,106,"{""technical_support"": 6}",4,delayed
+250,data_entry,93,"{""inventory_management"": 1, ""product_knowledge"": 7}",9,delayed
+251,documentation,58,"{""phone_etiquette"": 6, ""customer_service"": 1, ""data_entry"": 5}",7,success
+252,documentation,58,"{""email_communication"": 1}",3,success
+253,product_inquiry,34,"{""data_entry"": 6, ""teamwork"": 4}",1,success
+254,customer_support,109,"{""product_knowledge"": 5}",8,escalated
+255,sales_call,56,"{""communication"": 8, ""inventory_management"": 3, ""time_management"": 8}",9,escalated
+256,product_inquiry,50,"{""quality_control"": 10, ""customer_service"": 4, ""communication"": 6}",3,delayed
+257,phone_support,41,"{""time_management"": 8, ""phone_etiquette"": 7}",2,escalated
+258,sales_call,70,"{""product_knowledge"": 10, ""email_communication"": 1}",3,delayed
+259,sales_call,115,"{""customer_service"": 4, ""multitasking"": 6, ""documentation"": 7}",10,escalated
+260,documentation,21,"{""data_entry"": 1}",5,escalated
+261,sales_call,20,"{""product_knowledge"": 6, ""sales"": 10, ""quality_control"": 6}",3,success
+262,documentation,32,"{""cash_handling"": 5, ""quality_control"": 10}",6,escalated
+263,customer_support,54,"{""time_management"": 9, ""email_communication"": 4}",4,success
+264,inventory_update,112,"{""sales"": 5, ""time_management"": 8}",9,escalated
+265,cash_transaction,66,"{""teamwork"": 6, ""phone_etiquette"": 3}",3,escalated
+266,quality_check,100,"{""teamwork"": 1}",7,delayed
+267,product_inquiry,117,"{""teamwork"": 8}",4,success
+268,phone_support,113,"{""communication"": 4, ""technical_support"": 8}",1,escalated
+269,quality_check,51,"{""quality_control"": 3, ""product_knowledge"": 9}",4,delayed
+270,inventory_update,28,"{""time_management"": 8}",1,delayed
+271,documentation,94,"{""customer_service"": 10}",1,success
+272,sales_call,72,"{""communication"": 7, ""problem_solving"": 10, ""multitasking"": 1}",2,delayed
+273,customer_support,89,"{""multitasking"": 1}",5,escalated
+274,quality_check,56,"{""data_entry"": 3}",6,delayed
+275,cash_transaction,29,"{""product_knowledge"": 7, ""communication"": 6}",8,success
+276,sales_call,41,"{""email_communication"": 4}",9,escalated
+277,inventory_update,106,"{""sales"": 4, ""inventory_management"": 9}",8,delayed
+278,documentation,58,"{""multitasking"": 10}",3,escalated
+279,customer_support,92,"{""phone_etiquette"": 7, ""product_knowledge"": 6}",10,success
+280,data_entry,95,"{""documentation"": 2}",9,escalated
+281,sales_call,37,"{""cash_handling"": 7}",4,success
+282,documentation,23,"{""problem_solving"": 8, ""quality_control"": 2}",2,success
+283,quality_check,23,"{""time_management"": 9, ""sales"": 8, ""inventory_management"": 5}",9,success
+284,product_inquiry,17,"{""phone_etiquette"": 4, ""data_entry"": 4, ""communication"": 5}",1,escalated
+285,documentation,63,"{""product_knowledge"": 6, ""inventory_management"": 6}",8,delayed
+286,product_inquiry,18,"{""customer_service"": 10, ""technical_support"": 9}",6,success
+287,sales_call,18,"{""inventory_management"": 3, ""product_knowledge"": 6, ""quality_control"": 8}",8,escalated
+288,data_entry,33,"{""customer_service"": 9, ""technical_support"": 7}",6,delayed
+289,cash_transaction,70,"{""documentation"": 2, ""customer_service"": 9}",3,delayed
+290,data_entry,87,"{""quality_control"": 2, ""data_entry"": 4, ""teamwork"": 4}",4,escalated
+291,data_entry,24,"{""communication"": 8}",7,success
+292,data_entry,87,"{""technical_support"": 9, ""product_knowledge"": 1}",7,escalated
+293,customer_support,84,"{""communication"": 3, ""quality_control"": 5}",5,delayed
+294,documentation,26,"{""problem_solving"": 8, ""inventory_management"": 6}",6,escalated
+295,sales_call,34,"{""cash_handling"": 9, ""phone_etiquette"": 5}",9,escalated
+296,phone_support,24,"{""problem_solving"": 8, ""inventory_management"": 7, ""multitasking"": 7}",9,escalated
+297,phone_support,112,"{""problem_solving"": 7}",6,delayed
+298,phone_support,64,"{""inventory_management"": 9}",8,delayed
+299,inventory_update,41,"{""data_entry"": 8, ""email_communication"": 2, ""technical_support"": 7}",10,escalated
+300,product_inquiry,18,"{""communication"": 3, ""product_knowledge"": 4}",1,escalated
