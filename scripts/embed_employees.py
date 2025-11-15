@@ -5,7 +5,6 @@ from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
 def parse_json_cell(cell):
-    """Parse JSON from CSV cell, handling escaped quotes."""
     if pd.isna(cell) or cell == "":
         return None
     try:

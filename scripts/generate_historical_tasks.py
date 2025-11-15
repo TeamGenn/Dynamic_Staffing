@@ -2,7 +2,6 @@ import csv
 import json
 import random
 
-# Skills pool based on employees.csv
 skills_pool = [
     'problem_solving', 'teamwork', 'multitasking', 'communication', 
     'technical_support', 'time_management', 'cash_handling', 
@@ -28,7 +27,6 @@ with open('data/historical_tasks.csv', 'w', newline='', encoding='utf-8') as f:
         task_type = random.choice(task_types)
         duration = random.randint(15, 120)
         
-        # Generate realistic required skills (1-3 skills)
         num_skills = random.randint(1, 3)
         required_skills = {random.choice(skills_pool): random.randint(1, 10) for _ in range(num_skills)}
         required_skills_json = json.dumps(required_skills)

@@ -3,28 +3,12 @@ import json
 import google.generativeai as genai
 
 def analyze_task_complexity(task_type, description, avg_duration, skills, priority):
-    """
-    Analyze task complexity using Gemini 2.0 Flash API.
-    
-    Args:
-        task_type: Type of the task
-        description: Task description
-        avg_duration: Historical average duration in minutes
-        skills: Required skills (dict or list)
-        priority: Priority level
-    
-    Returns:
-        dict: Parsed JSON response with complexity analysis
-    """
-    # Get API key from environment
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise ValueError("GEMINI_API_KEY must be set in environment variables")
     
-    # Configure Gemini client
     genai.configure(api_key=api_key)
     
-    # Format skills for prompt
     if isinstance(skills, dict):
         skills_str = ", ".join([f"{k}: {v}" for k, v in skills.items()])
     elif isinstance(skills, list):
@@ -32,7 +16,6 @@ def analyze_task_complexity(task_type, description, avg_duration, skills, priori
     else:
         skills_str = str(skills)
     
-    # Build the prompt template
     prompt = f"""You are a workforce planning AI assistant. Analyze the following task and provide a detailed assessment.
 
 Task Information:
@@ -66,19 +49,14 @@ Provide your analysis in the following JSON format:
 Your response must be ONLY valid JSON. Do not include any text before or after the JSON object."""
     
     try:
-        # Initialize Gemini 2.0 Flash model
         model = genai.GenerativeModel('gemini-2.0-flash-exp')
-        
-        # Generate response
         response = model.generate_content(prompt)
         
-        # Extract text from response
         if not hasattr(response, 'text') or not response.text:
             raise RuntimeError("Gemini API returned empty or invalid response")
         
         response_text = response.text.strip()
         
-        # Remove markdown code blocks if present
         if response_text.startswith("```json"):
             response_text = response_text[7:]
         if response_text.startswith("```"):
@@ -87,7 +65,6 @@ Your response must be ONLY valid JSON. Do not include any text before or after t
             response_text = response_text[:-3]
         response_text = response_text.strip()
         
-        # Parse JSON
         result = json.loads(response_text)
         return result
         

@@ -3,7 +3,6 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance
 
 def recreate_collection(client, collection_name, vectors_config):
-    """Delete collection if exists and create a new one."""
     try:
         client.delete_collection(collection_name)
         print(f"Deleted existing collection: {collection_name}")
