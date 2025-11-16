@@ -60,9 +60,6 @@ async def upload(
             detail="No content found in file."
         )
 
-
-    print("File Content:", content_str)
-
     return {
         "message": "CSV uploaded successfully.",
         "filename": file.filename,
