@@ -135,3 +135,36 @@ async def create_task(payload: TaskCreateRequest, db: Session = Depends(get_db),
     return TaskCreateResponse(
         task_id=task.task_id
     )
+
+@app.get("/get-schedule")
+async def get_schedule(
+    db: Session = Depends(get_db),
+    session_token: str = Cookie(None)
+):
+
+    if not session_token:
+
+        raise HTTPException(status_code=400, detail="Session token missing. Please generate a session first.")
+    
+    unassigned_tasks = db.query(Task).filter(
+        Task.session_token == session_token
+    ).all()
+
+    if not unassigned_tasks:
+        return {"message": "No tasks to schedule."}
+    
+    schedule = []
+    for task in unassigned_tasks:
+        schedule.append({
+            "task_id": task.task_id,
+            "task_type": task.task_type,
+            "duration_minutes": task.duration_minutes,
+            "priority": task.priority,
+            "required_skills": task.required_skills,
+            "start_datetime": task.start_datetime,
+            "end_datetime": task.end_datetime
+        })
+
+    # call scheduling logic here
+
+    return {"schedule": schedule} # temporary response; will update it later
