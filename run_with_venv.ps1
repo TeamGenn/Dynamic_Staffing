@@ -48,7 +48,7 @@ if (-not $packages) {
 
 Write-Host ""
 Write-Host "Step 1/4: Setting up Qdrant collections..." -ForegroundColor Cyan
-venv\Scripts\python.exe qdrant_setup.py
+venv\Scripts\python.exe .\scripts\setup_qdrant.py
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Setup failed!" -ForegroundColor Red
     exit 1
@@ -56,7 +56,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host ""
 
 Write-Host "Step 2/4: Embedding employees..." -ForegroundColor Cyan
-venv\Scripts\python.exe embed_employees.py
+venv\Scripts\python.exe .\scripts\setup_employees_collection.py
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Employee embedding failed!" -ForegroundColor Red
     exit 1
@@ -64,7 +64,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host ""
 
 Write-Host "Step 3/4: Embedding tasks..." -ForegroundColor Cyan
-venv\Scripts\python.exe embed_tasks.py
+venv\Scripts\python.exe .\scripts\setup_tasks_collection.py
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Task embedding failed!" -ForegroundColor Red
     exit 1
@@ -72,7 +72,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host ""
 
 Write-Host "Step 4/4: Testing search..." -ForegroundColor Cyan
-venv\Scripts\python.exe test_search.py
+venv\Scripts\python.exe .\scripts\test_search.py
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Search test failed!" -ForegroundColor Red
     exit 1
