@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response, Depends, Cookie
 from pydantic import BaseModel, Field
 from typing import Literal, Dict
 from scripts.embed_tasks import embed_tasks
@@ -7,6 +7,9 @@ from io import StringIO
 from datetime import datetime
 import uuid
 from dotenv import load_dotenv
+from sqlalchemy.orm import Session
+import json
+from backend.db import SessionLocal, Task
 
 load_dotenv()
 
@@ -33,6 +36,14 @@ class TaskCreateRequest(BaseModel):
 class TaskCreateResponse(BaseModel):
     task_id: str
     status: str = "created"
+
+def get_db():
+
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @app.get("/health")
 def health():
@@ -95,25 +106,32 @@ async def upload(
     }
 
 @app.post("/create-task", response_model=TaskCreateResponse)
-async def create_task(payload: TaskCreateRequest):
+async def create_task(payload: TaskCreateRequest, db: Session = Depends(get_db), session_token: str = Cookie(None)):
 
-    global tasks
-
-    print("Tasks:", tasks)
+    if not session_token:
+        raise HTTPException(status_code=400, detail="Session token missing. Please generate a session first.")
     
     if payload.priority not in range(1, 6):
         raise HTTPException(status_code=400, detail="priority must be between 1 and 5")
 
-    
     if payload.end_datetime <= payload.start_datetime:
         raise HTTPException(status_code=400, detail="end_datetime must be after start_datetime")
 
-    task_id = str(uuid.uuid4())
+    task = Task(
+        task_id=str(uuid.uuid4()),
+        session_token=session_token,
+        task_type=payload.task_type,
+        duration_minutes=payload.duration_minutes,
+        required_skills=json.dumps(payload.required_skills),
+        priority=payload.priority,
+        start_datetime=payload.start_datetime,
+        end_datetime=payload.end_datetime
+    )
 
-    task_data = payload.model_dump()
-
-    tasks.append(task_data)
+    db.add(task)
+    db.commit()
+    db.refresh(task)
 
     return TaskCreateResponse(
-        task_id=task_id
+        task_id=task.task_id
     )
