@@ -28,9 +28,7 @@ async def upload(
     
     content = await file.read()
 
-    with open(f"uploads/{file.filename}", "wb") as f:
-
-        f.write(content)
+    print("File Content:", content)
 
     return {
         "message": "CSV uploaded successfully.",
