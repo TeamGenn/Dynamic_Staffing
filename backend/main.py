@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response
 from pydantic import BaseModel, Field
 from typing import Literal, Dict
 from scripts.embed_tasks import embed_tasks
@@ -37,6 +37,15 @@ class TaskCreateResponse(BaseModel):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+@app.get("/init-session")
+async def init_session(response: Response):
+
+    session_token = str(uuid.uuid4())
+
+    response.set_cookie(key="session_token", value=session_token)
+
+    return {"session_token": session_token}
 
 @app.post("/upload", response_model=UploadResponse)
 async def upload(
