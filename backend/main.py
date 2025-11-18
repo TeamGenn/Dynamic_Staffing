@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 import json
 from backend.db import SessionLocal, Task
 from scripts.search_employees import search
+from scheduler import schedule
 
 load_dotenv()
 
@@ -165,9 +166,9 @@ async def get_schedule(
     if not unassigned_tasks:
         return {"message": "No tasks to schedule."}
     
-    schedule = []
+    upcoming_tasks = []
     for task in unassigned_tasks:
-        schedule.append({
+        upcoming_tasks.append({
             "task_id": task.task_id,
             "task_type": task.task_type,
             "duration_minutes": task.duration_minutes,
@@ -178,6 +179,8 @@ async def get_schedule(
         })
 
     # call scheduling logic here
+
+    
 
     return {"schedule": schedule} # temporary response; will update it later
 

@@ -9,61 +9,163 @@ headers = {
     "x-service-key": os.environ.get("OPUS_API_KEY")
 }
 
-def job_initiate():
+def job_initiate(title, description):
 
-    data = {
-    "workflowId": "CIAwZYFzQJwmADQN",
-    "title": "testing_webhook",
-    "description": "this_is_test_job"
-    }
+    try:
 
-
-    response = requests.post("https://operator.opus.com/job/initiate", headers=headers, json=data)
-
-    return response.text
-
-def job_execute(job_id):
-
-    data = {
-    "jobExecutionId": job_id,
-    "jobPayloadSchemaInstance": {
-        "workflow_input_0yd7byu7p": {
-            "value": [
-                {
-                    "task_id": "a1f9c2e4-7b23-4d5f-8a2c-1b9c3f7d2e01",
-                    "task_type": "customer_support",
-                    "priority": 2,
-                    "start_datetisme": "2025-11-17T09:00:00",
-                    "end_datetime": "2025-11-17T09:45:00"
-                },
-                {
-                    "task_id": "d2b3f1a8-5e6f-42b1-9c7d-3f2b1e5c6a7d",
-                    "task_type": "technical_issue",
-                    "priority": 4,
-                    "start_datetime": "2025-11-17T8:00:00",
-                    "end_datetime": "2025-11-17T11:00:00"
-                }
-        ],
-            "type": "array"
+        data = {
+        "workflowId": "CIAwZYFzQJwmADQN",
+        "title": title,
+        "description": description
         }
-    }
-}
 
+        response = requests.post("https://operator.opus.com/job/initiate", headers=headers, json=data)
 
-    response = requests.post("https://operator.opus.com/job/execute", headers=headers, json=data)
+        return response.text
+    
+    except Exception as e:
 
-    return response.text
+        print("Error @job_initiate():", e)
+
+        return None
+
+def job_execute(job_id, task):
+
+    try:
+
+        data = {
+            "jobExecutionId": job_id,
+            "jobPayloadSchemaInstance": {
+                "workflow_input_0yd7byu7p": {
+                    "value": {
+                        "task": {
+                            "id": "_qoea5zqto",
+                            "variable_name": "task",
+                            "type": "object",
+                            "type_definition": {
+                            "task_id": {
+                                "id": "_sn7as1idv",
+                                "variable_name": "task_id",
+                                "type": "str"
+                            },
+                            "task_type": {
+                                "id": "_t2c7seh83",
+                                "variable_name": "task_type",
+                                "type": "str"
+                            },
+                            "duration_minutes": {
+                                "id": "_0e6ym46s0",
+                                "variable_name": "duration_minutes",
+                                "type": "str"
+                            },
+                            "priority": {
+                                "id": "_0cxuj4dup",
+                                "variable_name": "priority",
+                                "type": "float"
+                            },
+                            "required_skills": {
+                                "id": "_3889yq5qa",
+                                "variable_name": "required_skills",
+                                "type": "str"
+                            },
+                            "start_datetime": {
+                                "id": "_caye1c2qg",
+                                "variable_name": "start_datetime",
+                                "type": "str"
+                            },
+                            "end_datetime": {
+                                "id": "_i9wufvhud",
+                                "variable_name": "end_datetime",
+                                "type": "str"
+                            }
+                            }
+                        }
+                        },
+                    "type": "object"
+                }
+            }
+        }
+
+        response = requests.post("https://operator.opus.com/job/execute", headers=headers, json=data)
+
+        return response.text
+    
+    except Exception as e:
+
+        print("Error @job_execute():", e)
+
+        return None
 
 def get_job_results(job_exec_id):
 
-    response = requests.get(f"https://operator.opus.com/job/{job_exec_id}/results", headers=headers)
+    try:
 
-    print(response.text)
+        response = requests.get(f"https://operator.opus.com/job/{job_exec_id}/results", headers=headers)
 
-job_exec_id = json.loads(job_initiate())["jobExecutionId"]
+        return response.text
+    
+    except Exception as e:
 
-print("Job Exec Id:", job_exec_id)
+        print("Error @get_job_results():", e)
 
-print(job_execute(job_exec_id))
+        return None
 
-get_job_results(job_exec_id)
+def execute_opus_workflow(title, description, workflow_id, payload):
+
+    job_exec_id = json.loads(job_initiate())["jobExecutionId"]
+
+    print("Job Exec Id:", job_exec_id)
+
+    print(job_execute(job_exec_id))
+
+    get_job_results(job_exec_id)
+
+
+"""
+
+{
+  "task": {
+    "id": "_qoea5zqto",
+    "variable_name": "task",
+    "type": "object",
+    "type_definition": {
+      "task_id": {
+        "id": "_sn7as1idv",
+        "variable_name": "task_id",
+        "type": "str"
+      },
+      "task_type": {
+        "id": "_t2c7seh83",
+        "variable_name": "task_type",
+        "type": "str"
+      },
+      "duration_minutes": {
+        "id": "_0e6ym46s0",
+        "variable_name": "duration_minutes",
+        "type": "str"
+      },
+      "priority": {
+        "id": "_0cxuj4dup",
+        "variable_name": "priority",
+        "type": "float"
+      },
+      "required_skills": {
+        "id": "_3889yq5qa",
+        "variable_name": "required_skills",
+        "type": "str"
+      },
+      "start_datetime": {
+        "id": "_caye1c2qg",
+        "variable_name": "start_datetime",
+        "type": "str"
+      },
+      "end_datetime": {
+        "id": "_i9wufvhud",
+        "variable_name": "end_datetime",
+        "type": "str"
+      }
+    }
+  }
+}
+
+"""
