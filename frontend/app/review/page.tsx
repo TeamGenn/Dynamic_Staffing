@@ -12,8 +12,10 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowLeft } from 'lucide-react'
+import { getSchedule } from '@/lib/api'
+import { transformScheduleToBlocks, extractEmployeesFromBlocks } from '@/lib/schedule-transform'
 
-// Mock data - this would come from your API
+// Mock data - fallback if API fails
 const MOCK_ALERTS: AIAlert[] = [
   {
     id: '1',
@@ -139,14 +141,78 @@ const MOCK_SCHEDULE: ScheduleBlock[] = [
 ]
 
 export default function ReviewPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('alerts')
   const [approvedTradeoffs, setApprovedTradeoffs] = useState<string[]>([])
+  const [scheduleData, setScheduleData] = useState<any>(null)
+  const [scheduleBlocks, setScheduleBlocks] = useState<ScheduleBlock[]>([])
+  const [employees, setEmployees] = useState<Array<{ id: string; name: string }>>(MOCK_EMPLOYEES)
+  const [error, setError] = useState<string | null>(null)
 
-  // Simulate AI processing
+  // Fetch schedule data from backend
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 0)
-    return () => clearTimeout(timer)
+    const fetchSchedule = async () => {
+      try {
+        setIsLoading(true)
+        const data = await getSchedule()
+        setScheduleData(data)
+        
+        // Transform backend data to schedule blocks
+        if (data.schedule && Array.isArray(data.schedule) && data.schedule.length > 0) {
+          const blocks = transformScheduleToBlocks(data.schedule, MOCK_EMPLOYEES)
+          setScheduleBlocks(blocks)
+          
+          // Extract unique employees from blocks
+          const extractedEmployees = extractEmployeesFromBlocks(blocks)
+          if (extractedEmployees.length > 0) {
+            setEmployees(extractedEmployees)
+          }
+        } else {
+          // Use mock data if no schedule from backend
+          setScheduleBlocks(MOCK_SCHEDULE)
+        }
+        
+        // Also check session storage for any additional data
+        const storedData = sessionStorage.getItem('scheduleData')
+        if (storedData) {
+          try {
+            const parsed = JSON.parse(storedData)
+            if (parsed.schedule && Array.isArray(parsed.schedule) && parsed.schedule.length > 0) {
+              const blocks = transformScheduleToBlocks(parsed.schedule, MOCK_EMPLOYEES)
+              setScheduleBlocks(blocks)
+              const extractedEmployees = extractEmployeesFromBlocks(blocks)
+              if (extractedEmployees.length > 0) {
+                setEmployees(extractedEmployees)
+              }
+            }
+          } catch (e) {
+            // Ignore parse errors
+          }
+        }
+      } catch (err: any) {
+        console.error('Failed to fetch schedule:', err)
+        setError(err.message || 'Failed to load schedule')
+        // Use mock data as fallback
+        setScheduleBlocks(MOCK_SCHEDULE)
+        // Try to use session storage as fallback
+        const storedData = sessionStorage.getItem('scheduleData')
+        if (storedData) {
+          try {
+            const parsed = JSON.parse(storedData)
+            if (parsed.schedule && Array.isArray(parsed.schedule)) {
+              const blocks = transformScheduleToBlocks(parsed.schedule, MOCK_EMPLOYEES)
+              setScheduleBlocks(blocks)
+            }
+          } catch (e) {
+            // Ignore
+          }
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchSchedule()
   }, [])
 
   const handleApproveTradeoff = (id: string) => {
@@ -196,12 +262,18 @@ export default function ReviewPage() {
         </div>
       </header>
 
-      <LoadingOverlay isLoading={isLoading} message="AI is analyzing your schedule..." />
+      <LoadingOverlay isLoading={isLoading} message="Loading schedule..." />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+        {error && (
+          <Card className="border-destructive bg-destructive/10 p-4">
+            <p className="text-sm text-destructive">{error}</p>
+          </Card>
+        )}
+
         {/* Schedule Summary */}
         <ScheduleSummary
-          totalTasks={MOCK_SCHEDULE.length}
+          totalTasks={scheduleBlocks.length || scheduleData?.schedule?.length || 0}
           aiRecommendations={MOCK_TRADEOFFS.length}
           approvedRecommendations={approvedTradeoffs.length}
           conflictsResolved={2}
@@ -209,10 +281,10 @@ export default function ReviewPage() {
 
         {/* Schedule Stats */}
         <ScheduleStats
-          totalHours={38}
-          employeeCount={MOCK_EMPLOYEES.length}
-          taskCount={MOCK_SCHEDULE.length}
-          utilizationRate={78}
+          totalHours={scheduleBlocks.reduce((sum, block) => sum + block.duration, 0) || 0}
+          employeeCount={employees.length}
+          taskCount={scheduleBlocks.length}
+          utilizationRate={scheduleBlocks.length > 0 ? Math.round((scheduleBlocks.length / employees.length) * 20) : 0}
         />
 
         {/* Tabbed Content */}
@@ -272,7 +344,13 @@ export default function ReviewPage() {
               <p className="mb-4 text-sm text-muted-foreground">
                 Visual representation of all assigned tasks across your team for the week.
               </p>
-              <WeeklyScheduleGrid scheduleBlocks={MOCK_SCHEDULE} employees={MOCK_EMPLOYEES} />
+              {scheduleBlocks.length > 0 ? (
+                <WeeklyScheduleGrid scheduleBlocks={scheduleBlocks} employees={employees} />
+              ) : (
+                <div className="rounded-lg border border-border bg-card p-8 text-center">
+                  <p className="text-muted-foreground">No schedule data available. Create tasks to generate a schedule.</p>
+                </div>
+              )}
             </Card>
           </TabsContent>
         </Tabs>

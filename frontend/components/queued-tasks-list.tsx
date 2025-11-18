@@ -4,18 +4,19 @@ import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 
 interface Task {
-  id: number
+  id?: number | string
+  task_id?: string
   name: string
   type: string
   priority: string
   duration: string
-  skills: string[]
+  skills: string[] | Record<string, number> // Can be array or object with skill levels
   description?: string
 }
 
 interface QueuedTasksListProps {
   tasks: Task[]
-  onRemoveTask: (taskId: number) => void
+  onRemoveTask: (taskId: number | string) => void
 }
 
 export function QueuedTasksList({ tasks, onRemoveTask }: QueuedTasksListProps) {
@@ -36,42 +37,60 @@ export function QueuedTasksList({ tasks, onRemoveTask }: QueuedTasksListProps) {
 
   return (
     <div className="space-y-3">
-      {tasks.map((task) => (
-        <div key={task.id} className="rounded-lg border border-border bg-card p-4">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-3">
-                <h3 className="font-semibold text-foreground">{task.name}</h3>
-                <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${priorityBg[task.priority as keyof typeof priorityBg]}`}>
-                  {task.priority}
-                </span>
-              </div>
-              {task.description && (
-                <p className="mt-1 text-sm text-muted-foreground">{task.description}</p>
-              )}
-              <div className="mt-2 flex flex-wrap gap-2">
-                <span className="text-xs text-muted-foreground">{task.type}</span>
-                <span className="text-xs text-muted-foreground">•</span>
-                <span className="text-xs text-muted-foreground">{task.duration}h</span>
-                <span className="text-xs text-muted-foreground">•</span>
-                <div className="flex gap-1 text-xs">
-                  {task.skills.slice(0, 2).map(s => (
-                    <span key={s} className="rounded border border-border bg-muted px-1.5 py-0.5 text-muted-foreground">{s}</span>
-                  ))}
-                  {task.skills.length > 2 && <span className="text-muted-foreground">+{task.skills.length - 2}</span>}
+      {tasks.map((task) => {
+        // Get task ID (can be id or task_id)
+        const taskId = task.id || task.task_id || ''
+        
+        // Convert skills to array format for display
+        // Skills can be either an array of strings or an object with skill names as keys
+        const skillsArray = Array.isArray(task.skills) 
+          ? task.skills 
+          : typeof task.skills === 'object' && task.skills !== null
+          ? Object.keys(task.skills)
+          : []
+        
+        return (
+          <div key={taskId} className="rounded-lg border border-border bg-card p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <h3 className="font-semibold text-foreground">{task.name}</h3>
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${priorityBg[task.priority as keyof typeof priorityBg]}`}>
+                    {task.priority}
+                  </span>
+                </div>
+                {task.description && (
+                  <p className="mt-1 text-sm text-muted-foreground">{task.description}</p>
+                )}
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <span className="text-xs text-muted-foreground">{task.type}</span>
+                  <span className="text-xs text-muted-foreground">•</span>
+                  <span className="text-xs text-muted-foreground">{task.duration}h</span>
+                  <span className="text-xs text-muted-foreground">•</span>
+                  <div className="flex gap-1 text-xs">
+                    {skillsArray.slice(0, 2).map(skill => (
+                      <span key={skill} className="rounded border border-border bg-muted px-1.5 py-0.5 text-muted-foreground">
+                        {skill}
+                        {!Array.isArray(task.skills) && typeof task.skills === 'object' && task.skills !== null && (
+                          <span className="ml-1 text-[10px] opacity-70">({task.skills[skill]})</span>
+                        )}
+                      </span>
+                    ))}
+                    {skillsArray.length > 2 && <span className="text-muted-foreground">+{skillsArray.length - 2}</span>}
+                  </div>
                 </div>
               </div>
+              <button
+                onClick={() => onRemoveTask(taskId)}
+                className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-destructive transition-colors"
+                title="Remove task"
+              >
+                <X className="h-5 w-5" />
+              </button>
             </div>
-            <button
-              onClick={() => onRemoveTask(task.id)}
-              className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-destructive transition-colors"
-              title="Remove task"
-            >
-              <X className="h-5 w-5" />
-            </button>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
