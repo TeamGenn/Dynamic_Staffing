@@ -4,6 +4,7 @@ An intelligent workforce management system that uses AI and semantic search to m
 
 ## 🚀 Features
 
+- **AI-Powered Task-Employee Matching**: Complete AI engine that combines Gemini complexity analysis with Qdrant semantic search to recommend optimal employee-task matches
 - **Semantic Employee Search**: Uses Qdrant vector database and sentence transformers to find the best employee matches for tasks based on skills, certifications, and performance history
 - **AI-Powered Task Analysis**: Leverages Google Gemini 2.0 Flash to analyze task complexity, estimate durations, and identify required skills
 - **Tradeoff Analysis**: AI-driven decision making for scheduling tradeoffs (cost vs. quality, speed vs. expertise, etc.)
@@ -31,8 +32,11 @@ Dynamic_Staffing/
 │   ├── main.py                   # FastAPI app entry point
 │   ├── scheduler.py              # Scheduling logic
 │   ├── search_employees.py        # Employee search functionality
-│   ├── gemini_task_complexity.py # Task complexity analysis
 │   ├── gemini_tradeoff_analysis.py # Tradeoff analysis
+│   ├── ai/                        # AI engine modules
+│   │   ├── analyze_and_match.py  # Main AI engine for task-employee matching
+│   │   ├── gemini_task_complexity.py # Task complexity analysis
+│   │   └── gemini_tradeoff_analysis.py # Tradeoff analysis
 │   ├── models/                   # Data models
 │   ├── routes/                   # API routes
 │   └── utils/                    # Utility functions
@@ -116,6 +120,62 @@ For detailed setup instructions, see [SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.
 GET /health
 ```
 Returns API status.
+
+## 🤖 AI Engine Usage
+
+### Main AI Matching Engine
+
+The `analyze_and_match` function is the core AI engine that combines task complexity analysis with employee matching:
+
+```python
+from backend.ai.analyze_and_match import analyze_and_match
+
+# Example task payload
+task_payload = {
+    "task_type": "phone_support",
+    "description": "Handle incoming customer calls and resolve technical issues",
+    "required_skills": {
+        "communication": 7,
+        "customer_service": 5,
+        "technical_support": 6
+    },
+    "priority": 2
+}
+
+# Get AI analysis and recommendations
+result = analyze_and_match(task_payload)
+
+# Result structure:
+# {
+#   "complexity_analysis": {
+#     "complexity_score": 7,
+#     "recommended_skills": {...},
+#     "challenges": [...],
+#     "duration_estimate": {...}
+#   },
+#   "top_employees": [
+#     {"employee_name": "Alice", "score": 0.76},
+#     {"employee_name": "Michael", "score": 0.71}
+#   ],
+#   "recommendation_summary": "This is a high-complexity task..."
+# }
+```
+
+### How It Works
+
+1. **Step 1 - Complexity Analysis**: Uses Google Gemini 2.0 Flash to analyze task complexity, estimate duration, and identify challenges
+2. **Step 2 - Employee Search**: Searches Qdrant vector database using semantic embeddings to find top matching employees
+3. **Step 3 - Recommendation**: Combines complexity analysis with employee matches to generate actionable recommendations
+
+### Testing the AI Engine
+
+You can test the AI engine directly:
+
+```bash
+python backend/ai/analyze_and_match.py
+```
+
+This will run a test with a sample task and display the results.
 
 
 ## 🤝 Contributing
