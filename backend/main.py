@@ -10,13 +10,12 @@ from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 import json
 from backend.db import SessionLocal, Task
-from scripts.search_employees import search
+from backend.ai.analyze_and_match import analyze_and_match
+from backend.scheduler import schedule
 
 load_dotenv()
 
 app = FastAPI()
-
-tasks = []
 
 class UploadResponse(BaseModel):
     message: str
@@ -38,8 +37,8 @@ class EmployeesSearchRequest(BaseModel):
     task_id: str = Field(..., description="Unique Id of the task")
     task_type: str = Field(..., description="Type/category of the task, e.g., 'product_inquiry'")
     duration_minutes: int = Field(..., gt=0, description="Estimated duration of task in minutes")
-    required_skills: str = Field(
-        ..., description="Json skills and their levels, e.g., {'documentation': 9}"
+    required_skills: Dict[str, int] = Field(
+        ..., description="Dictionary of required skills and their levels, e.g., {'documentation': 9}"
     )
     priority: int = Field(..., ge=1, le=5, description="Priority of task, 1 (low) to 5 (high)")
     start_datetime: datetime = Field(..., description="Earliest start for the task")
@@ -165,9 +164,9 @@ async def get_schedule(
     if not unassigned_tasks:
         return {"message": "No tasks to schedule."}
     
-    schedule = []
+    schedule_list = []
     for task in unassigned_tasks:
-        schedule.append({
+        schedule_list.append({
             "task_id": task.task_id,
             "task_type": task.task_type,
             "duration_minutes": task.duration_minutes,
@@ -177,31 +176,44 @@ async def get_schedule(
             "end_datetime": task.end_datetime
         })
 
-    # call scheduling logic here
+    # Sort tasks by priority and deadline using scheduler
+    sorted_tasks = schedule(schedule_list)
 
-    return {"schedule": schedule} # temporary response; will update it later
+    return {"schedule": sorted_tasks}
 
 @app.post("/search-employees")
 async def search_employees(payload: EmployeesSearchRequest):
-
-    try:
-        
-        task = {
-            "task_id": payload.task_id,
-            "task_type": payload.task_type,
-            "duration_minutes": payload.duration_minutes,
-            "priority": payload.priority,
-            "required_skills": payload.required_skills,
-            "start_datetime": payload.start_datetime,
-            "end_datetime": payload.end_datetime
-        }
-
-        top_employees = search(task)
-
-        return top_employees
+    """
+    Search for employees matching task requirements using AI-powered analysis.
     
+    This endpoint uses the AI engine to:
+    1. Analyze task complexity using Gemini
+    2. Search for matching employees using Qdrant semantic search
+    3. Generate recommendations combining both analyses
+    """
+    try:
+        # Prepare task payload for AI engine
+        task_payload = {
+            "task_type": payload.task_type,
+            "description": "",  # Optional: could add description field to request
+            "required_skills": payload.required_skills,  # Now a Dict[str, int]
+            "priority": payload.priority
+        }
+        
+        # Call AI engine for full analysis
+        result = analyze_and_match(task_payload)
+        
+        # Return comprehensive AI analysis results
+        return {
+            "task_id": payload.task_id,
+            "complexity_analysis": result["complexity_analysis"],
+            "top_employees": result["top_employees"],
+            "recommendation_summary": result["recommendation_summary"]
+        }
+    
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid request: {str(e)}")
+    except RuntimeError as e:
+        raise HTTPException(status_code=500, detail=f"AI analysis failed: {str(e)}")
     except Exception as e:
-
-        print("Error @search_employees():", e)
-
-        return []
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
