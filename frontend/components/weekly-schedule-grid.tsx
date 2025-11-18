@@ -69,7 +69,7 @@ export function WeeklyScheduleGrid({ scheduleBlocks, employees }: WeeklySchedule
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
+    <div className="overflow-x-auto rounded-lg border border-border weekly-schedule-container">
       <div className="inline-block min-w-full">
         {/* Header - Days of Week */}
         <div className="flex">

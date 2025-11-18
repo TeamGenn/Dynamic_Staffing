@@ -14,6 +14,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowLeft } from 'lucide-react'
 import { getSchedule } from '@/lib/api'
 import { transformScheduleToBlocks, extractEmployeesFromBlocks } from '@/lib/schedule-transform'
+import { toast } from 'sonner'
+import { generateSchedulePDF, exportScheduleGridAsPDF } from '@/lib/pdf-export'
 
 // Mock data - fallback if API fails
 const MOCK_ALERTS: AIAlert[] = [
@@ -223,18 +225,54 @@ export default function ReviewPage() {
     setApprovedTradeoffs(approvedTradeoffs.filter(t => t !== id))
   }
 
-  const handleExportPDF = () => {
-    // In a real app, use a library like jsPDF or html2pdf
-    alert('PDF export initiated. In production, this would generate a professional PDF.')
+  const handleExportPDF = async () => {
+    try {
+      toast.loading('Generating PDF...', { id: 'pdf-export' })
+      
+      // Generate PDF with schedule data
+      const filename = await generateSchedulePDF({
+        scheduleBlocks,
+        employees,
+        totalTasks: scheduleBlocks.length,
+        approvedRecommendations: approvedTradeoffs.length
+      })
+      
+      toast.success('PDF exported successfully!', {
+        id: 'pdf-export',
+        description: `Downloaded ${filename}`,
+      })
+    } catch (error) {
+      console.error('Error exporting PDF:', error)
+      toast.error('Failed to export PDF', {
+        id: 'pdf-export',
+        description: 'Please try again or export as CSV instead.',
+      })
+    }
   }
 
   const handleExportCSV = () => {
-    // Generate CSV content
-    const csvContent = 'data:text/csv;charset=utf-8,Employee,Task,Day,Start Time,Duration\nAlice Chen,API Design,Monday,09:00,4 hours\nBob Smith,UI Components,Tuesday,09:00,6 hours'
+    // Generate CSV content from actual schedule data
+    const csvRows = ['Employee,Task,Day,Start Time,Duration,Type']
+    
+    scheduleBlocks.forEach(block => {
+      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      const dayName = days[block.day]
+      const startHour = Math.floor(block.startTime)
+      const startMinute = Math.round((block.startTime - startHour) * 60)
+      const startTimeStr = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`
+      
+      csvRows.push(`"${block.employeeName}","${block.taskName}",${dayName},${startTimeStr},${block.duration}h,${block.type}`)
+    })
+    
+    const csvContent = 'data:text/csv;charset=utf-8,' + csvRows.join('\n')
     const link = document.createElement('a')
-    link.setAttribute('href', csvContent)
-    link.setAttribute('download', 'schedule.csv')
+    link.setAttribute('href', encodeURI(csvContent))
+    link.setAttribute('download', `schedule-${new Date().toISOString().split('T')[0]}.csv`)
     link.click()
+    
+    toast.success('CSV exported successfully!', {
+      description: `Downloaded schedule-${new Date().toISOString().split('T')[0]}.csv`,
+    })
   }
 
   return (
@@ -369,7 +407,11 @@ export default function ReviewPage() {
               Back to Intake
             </Button>
             <Button
-              onClick={() => alert('Schedule finalized! Your team can now view the approved schedule.')}
+              onClick={() => {
+                toast.success('Schedule Finalized!', {
+                  description: 'Your team can now view the approved schedule.',
+                })
+              }}
               className="flex-1 bg-success text-success-foreground hover:bg-success/90 sm:flex-none"
             >
               Finalize Schedule
