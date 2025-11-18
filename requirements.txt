@@ -1,5 +1,6 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.1.0+cpu
+torch==2.4.1+cpu
+numpy<2
 qdrant-client>=1.7.0
 sentence-transformers>=2.2.0
 pandas>=2.0.0
