@@ -3,7 +3,7 @@ import json
 import google.generativeai as genai
 
 def analyze_task_complexity(task_type, description, avg_duration, skills, priority):
-    api_key = os.environ.get("AIzaSyA_Nz1WRKUum8VEVzz1PyTOyBaluaswCZU")
+    api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise ValueError("GEMINI_API_KEY must be set in environment variables")
     
