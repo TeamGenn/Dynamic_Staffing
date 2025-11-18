@@ -17,6 +17,15 @@ load_dotenv()
 
 app = FastAPI()
 
+def _get_port() -> int:
+    """Return the port FastAPI should bind to."""
+    import os
+
+    try:
+        return int(os.getenv("PORT", "10000"))
+    except ValueError:
+        return 10000
+
 class UploadResponse(BaseModel):
     message: str
     filename: str
@@ -217,3 +226,12 @@ async def search_employees(payload: EmployeesSearchRequest):
         raise HTTPException(status_code=500, detail=f"AI analysis failed: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "backend.main:app",
+        host="0.0.0.0",
+        port=_get_port(),
+    )
