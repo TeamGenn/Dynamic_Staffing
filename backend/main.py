@@ -81,7 +81,13 @@ async def init_session(response: Response):
 
     session_token = str(uuid.uuid4())
 
-    response.set_cookie(key="session_token", value=session_token)
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite='none'
+    )
 
     return {"session_token": session_token}
 
