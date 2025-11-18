@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 import json
 from backend.db import SessionLocal, Task
+from scripts.search_employees import search
 
 load_dotenv()
 
@@ -28,6 +29,17 @@ class TaskCreateRequest(BaseModel):
     duration_minutes: int = Field(..., gt=0, description="Estimated duration of task in minutes")
     required_skills: Dict[str, int] = Field(
         ..., description="Dictionary of required skills and their levels, e.g., {'documentation': 9}"
+    )
+    priority: int = Field(..., ge=1, le=5, description="Priority of task, 1 (low) to 5 (high)")
+    start_datetime: datetime = Field(..., description="Earliest start for the task")
+    end_datetime: datetime = Field(..., description="Latest end for the task")
+
+class EmployeesSearchRequest(BaseModel):
+    task_id: str = Field(..., description="Unique Id of the task")
+    task_type: str = Field(..., description="Type/category of the task, e.g., 'product_inquiry'")
+    duration_minutes: int = Field(..., gt=0, description="Estimated duration of task in minutes")
+    required_skills: str = Field(
+        ..., description="Json skills and their levels, e.g., {'documentation': 9}"
     )
     priority: int = Field(..., ge=1, le=5, description="Priority of task, 1 (low) to 5 (high)")
     start_datetime: datetime = Field(..., description="Earliest start for the task")
@@ -168,3 +180,28 @@ async def get_schedule(
     # call scheduling logic here
 
     return {"schedule": schedule} # temporary response; will update it later
+
+@app.post("/search-employees")
+async def search_employees(payload: EmployeesSearchRequest):
+
+    try:
+        
+        task = {
+            "task_id": payload.task_id,
+            "task_type": payload.task_type,
+            "duration_minutes": payload.duration_minutes,
+            "priority": payload.priority,
+            "required_skills": payload.required_skills,
+            "start_datetime": payload.start_datetime,
+            "end_datetime": payload.end_datetime
+        }
+
+        top_employees = search(task)
+
+        return top_employees
+    
+    except Exception as e:
+
+        print("Error @search_employees():", e)
+
+        return []
