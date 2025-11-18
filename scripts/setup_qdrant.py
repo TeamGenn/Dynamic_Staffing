@@ -15,7 +15,7 @@ def recreate_collection(client, collection_name, vectors_config):
     )
     print(f"Created collection: {collection_name}")
 
-def main():
+def setup():
     QDRANT_URL = os.environ.get("QDRANT_URL")
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
     
@@ -38,5 +38,5 @@ def main():
     print("Setup complete!")
 
 if __name__ == "__main__":
-    main()
 
+    setup()

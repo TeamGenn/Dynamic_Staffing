@@ -14,7 +14,8 @@ def parse_json_cell(cell):
         print(f"Error parsing JSON: {cell[:50]}... Error: {e}")
         return None
 
-def main():
+def embed_tasks(file_content):
+
     QDRANT_URL = os.environ.get("QDRANT_URL")
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
     
@@ -28,7 +29,7 @@ def main():
     
     model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
     
-    df = pd.read_csv('data/historical_tasks.csv')
+    df = pd.read_csv(file_content)
     
     points = []
     
@@ -81,7 +82,3 @@ def main():
         print(f"Upserted final {len(points)} tasks")
     
     print("Task embedding complete!")
-
-if __name__ == "__main__":
-    main()
-
